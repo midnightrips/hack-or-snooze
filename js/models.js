@@ -73,8 +73,33 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
+  async addStory(user, {title, author, url}) {
     // UNIMPLEMENTED: complete this function!
+    let token = user.loginToken;
+    let res = await axios({
+      method: "POST",
+      url: `${BASE_URL}/stories`,
+      data: { token, story: { title, author, url } }
+    }); //tried await axios.post(`${BASE_URL}/stories`, {data: { token, story: { title, author, url } }}); but it didn't work so I had to look at solution
+    const newStory =  new Story(res.data.story);
+
+    return newStory;
+  }
+
+  async removeStory(user, storyID) {
+    let token = user.loginToken;
+    await axios({
+      method: "DELETE",
+      url: `${BASE_URL}/stories/${storyID}`,
+      data: { token }
+    });
+    
+    // filters out the story whose ID we are removing
+    this.stories = this.stories.filter(story => story.storyID !== storyID);
+
+    user.ownStories = user.ownStories.filter(s => s.storyID !== storyID);
+    user.favorites = user.favorites.filter(s => s.storyID !== storyID);
+
   }
 }
 
@@ -192,5 +217,29 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  async addOrRemovefavorite(method, story) {
+    let httpMethod = method;
+    const token = this.loginToken;
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: httpMethod,
+      data: {token},
+    });
+  }
+
+  async addFavorite(story) {
+    this.favorites.push(story);
+    await this.addOrRemovefavorite("POST", story);
+  }
+
+  async removeFavorite(story) {
+    await this.addOrRemovefavorite("DELETE", story);
+  }
+
+  isFavorite(story) {
+    //if story exists, run the code below, if not, console.log("no story ID")
+    return this.favorites.some(s => (s.storyId === story.storyId));
   }
 }

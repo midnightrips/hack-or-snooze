@@ -19,6 +19,7 @@
 
 /* Individual stories */
 
+
 .story-link {
   color: black;
   font-size: 0.85rem;
@@ -31,9 +32,18 @@
 }
 
 .story-author {
-  margin-left: 2em;
+  display:block;
+  margin-left: 23px;
+  font-size: 17px;
+  color: rgb(0, 128, 0);
+  padding-bottom: 6px;
+  padding-top: 6px;
 }
 
 .story-user {
   display: block;
+  color: orange;
+  margin-left: 23px;
+  font-size: 17px;
+  padding-bottom: 6px;
 }

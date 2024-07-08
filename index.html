@@ -37,12 +37,40 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
   </div>
+  <div class="nav-user-links"> <!-- add class for styling submit link -->
+    |
+    <a class="nav-link" href="#" id="nav-submit-story">submit</a>
+    |
+    <a class="nav-link" href="#" id="nav-favorites">favorites</a>
+    |
+    <a class="nav-link" href="#" id="nav-my-stories">my stories</a>
+  </div>
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
     <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
   </div>
 </nav>
+
+<!-- Form for story -->
+<form action="" class='hidden' id="submit-story">
+  <div>
+    <label for="create-title">title</label>
+    <input type="text" id="create-title" required placeholder="Story title">
+  </div>
+  <div>
+    <label for="create-author">author</label>
+    <input type="text" id="create-author" required placeholder="Author">
+  </div>
+  <div>
+    <label for="create-url">url</label>
+    <input type="url" id="create-url" required placeholder="Story url">
+  </div>
+
+  <button type="submit" id="submit-btn">submit</button>
+
+  <hr>
+</form>
 
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
@@ -53,6 +81,22 @@
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
 
+  <ol id="my-stories-list" class="stories-list"></ol>
+
+  <ol id="favorites-list" class="stories-list"></ol>
+
+</section>
+
+<!-- user profile page -->
+<section id="user-profile" class="hidden">
+  <div class="user-profile-box container">
+    <h4>User Profile Info</h4>
+    <section>
+      <div>Name: <span id="profile-name">Name:</span></div>
+      <div>Username: <span id="profile-username">Username:</span></div>
+      <div>Account Created: <span id="profile-account-date"></span></div>
+    </section>
+  </div>
 </section>
 
 <!-- Login and signup forms -->
@@ -95,6 +139,9 @@
     <button type="submit">create account</button>
   </form>
 </section>
+
+
+
 
 <!-- Library JS & our JS -->
 <script src="https://unpkg.com/jquery"></script>
